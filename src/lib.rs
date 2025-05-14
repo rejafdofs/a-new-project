@@ -1,6 +1,5 @@
-mod test;
-mod parser;
-pub mod interface;
 mod ghost_state;
-
-
+pub mod interface;
+mod parser;
+mod test;
+mod error;
