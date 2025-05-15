@@ -1,3 +1,8 @@
+use windows::Win32::{
+    Foundation::{GlobalFree, HGLOBAL},
+    UI::WindowsAndMessaging::HCBT_KEYSKIPPED,
+};
+
 use crate::error::りさると;
 
 use std::{
@@ -5,33 +10,36 @@ use std::{
     slice,
 };
 #[unsafe(no_mangle)]
-pub unsafe extern "C" fn load(h: *const c_char, len: c_long) -> bool {
-    if let Ok(request) = unsafe { ptr_to_string(h, len) }{
+pub unsafe extern "C" fn loadu(h: HGLOBAL, len: c_long) -> bool {
+    if let Ok(request) = unsafe { ptr_to_string(h, len) } {
         todo!();
         true
-    }else {
+    } else {
         false
     }
 }
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn unload() -> bool {
-true
+    true
 }
 #[unsafe(no_mangle)]
-pub unsafe extern "C" fn request(h: *const c_char, len: *mut c_long) -> *const c_char {
-    if let Ok(request) = unsafe { ptr_to_string(h, *len) }{
+pub unsafe extern "C" fn request(h: HGLOBAL, len: *mut c_long) -> *const c_char {
+    if let Ok(request) = unsafe { ptr_to_string(h, *len) } {
         todo!()
-    }else {
+    } else {
         todo!()
     }
 }
-unsafe fn ptr_to_string(ptr: *const c_char, len: c_long) -> りさると<String> {
+unsafe fn ptr_to_string(h: HGLOBAL, len: c_long) -> りさると<String> {
+    let ptr = h.0 as *const u8;
     if ptr.is_null() {
         return Ok(String::new());
     }
-    // ポインタからスライスを作成するにゃん
-    let bytes = unsafe { slice::from_raw_parts(ptr as *const u8, len.try_into()?) };
-
-    // スライスをUTF-8として解釈し、Stringに変換するにゃん
-    Ok(String::from_utf8(bytes.to_vec())?)
+    let bytes = unsafe { slice::from_raw_parts(ptr, len.try_into()?) }
+        .to_vec()
+        .clone();
+    unsafe {
+        GlobalFree(h)?;
+    };
+    Ok(String::from_utf8(bytes)?)
 }
