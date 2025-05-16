@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2024"
 [lib]
 crate-type = ["cdylib"]
+[dependencies.serde]
+version = "*"
+features = [
+    "derive"
+]
 [dependencies.windows]
 version = "0.58"
 features = [
