@@ -1,11 +1,7 @@
 use crate::error::りさると;
 use std::{
-    ffi::{c_char, c_long},
+    ffi::{c_char, c_long, CString},
     slice,
-};
-use windows::{
-    Win32::Foundation::{GlobalFree, HGLOBAL},
-    core::Free,
 };
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn loadu(h: *const u8, len: c_long) -> bool {
@@ -39,5 +35,8 @@ unsafe fn ptr_to_string(h: *const u8, len: c_long) -> りさると<String> {
     Ok(String::from_utf8(bytes)?)
 }
 unsafe fn string_to_ptr(input: String) -> りさると<(*const c_char, c_long)> {
-    todo!()
+    let c_string = CString::new(input)?;
+    let ptr = c_string.into_raw();
+    let len = unsafe { libc::strlen(ptr) } as libc::c_long;
+    Ok((ptr, len))
 }

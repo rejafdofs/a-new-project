@@ -3,6 +3,12 @@
 version = 4
 
 [[package]]
+name = "libc"
+version = "0.2.172"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d750af042f7ef4f724306de029d18836c26c1765a54a6a3f094cbd23a7267ffa"
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.95"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -44,6 +50,7 @@ dependencies = [
 name = "siori"
 version = "0.1.0"
 dependencies = [
+ "libc",
  "serde",
  "windows",
 ]
