@@ -1,14 +1,9 @@
-use windows::Win32::{
-    Foundation::{GlobalFree, HGLOBAL},
-    UI::WindowsAndMessaging::HCBT_KEYSKIPPED,
-};
-
 use crate::error::りさると;
-
 use std::{
     ffi::{c_char, c_long},
     slice,
 };
+use windows::Win32::Foundation::{GlobalFree, HGLOBAL};
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn loadu(h: HGLOBAL, len: c_long) -> bool {
     if let Ok(request) = unsafe { ptr_to_string(h, len) } {
@@ -43,3 +38,4 @@ unsafe fn ptr_to_string(h: HGLOBAL, len: c_long) -> りさると<String> {
     };
     Ok(String::from_utf8(bytes)?)
 }
+unsafe fn string_to_ptr(input: String) -> りさると<(HGLOBAL, c_long)> {todo!()}
