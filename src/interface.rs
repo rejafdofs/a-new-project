@@ -1,12 +1,13 @@
+use libc::strlen;
+
 use crate::error::りさると;
 use std::{
-    ffi::{c_char, c_long, CString},
-    slice,
+    ffi::{c_char, c_long, CString}, ptr::null_mut, slice
 };
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn loadu(h: *const u8, len: c_long) -> bool {
     if let Ok(request) = unsafe { ptr_to_string(h, len) } {
-        todo!();
+        crate::init::init();
         true
     } else {
         false
@@ -21,12 +22,13 @@ pub unsafe extern "C" fn request(h: *const u8, len: *mut c_long) -> *const c_cha
     if let Ok(request) = unsafe { ptr_to_string(h, *len) } {
         todo!()
     } else {
-        todo!()
+        unsafe { *len=0 };
+        null_mut() as *const c_char
     }
 }
 unsafe fn ptr_to_string(h: *const u8, len: c_long) -> りさると<String> {
     let ptr = h as *const u8;
-    if ptr.is_null() {
+    if ptr.is_null() {//
         return Ok(String::new());
     }
     let bytes = unsafe { slice::from_raw_parts(ptr, len.try_into()?) }
@@ -37,6 +39,6 @@ unsafe fn ptr_to_string(h: *const u8, len: c_long) -> りさると<String> {
 unsafe fn string_to_ptr(input: String) -> りさると<(*const c_char, c_long)> {
     let c_string = CString::new(input)?;
     let ptr = c_string.into_raw();
-    let len = unsafe { libc::strlen(ptr) } as libc::c_long;
+    let len = unsafe { strlen(ptr) } as c_long;
     Ok((ptr, len))
 }

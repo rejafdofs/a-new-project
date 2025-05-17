@@ -1,3 +1,3 @@
-fn init()->bool{
+pub(crate) fn init()->bool{
 todo!()
 }
