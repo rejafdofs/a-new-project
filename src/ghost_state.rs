@@ -1,17 +1,21 @@
 use serde::{Deserialize, Serialize};
-use std::sync::Mutex;
+use std::{sync::Mutex, time::Duration};
+use crate::reqest::Reqest;
 pub static GHOSTSTATE: Mutex<Ghoststate> = Mutex::new(Ghoststate::new());
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Serialize, Deserialize)]
-pub struct Ghoststate {}
+pub struct Ghoststate {
+    time: Duration,
+}
 
 impl Ghoststate {
     const fn new() -> Ghoststate {
-        Ghoststate {}
+        Ghoststate {
+            time: Duration::new(0, 0),
+        }
     }
-    fn init(&mut self){
-
-    }
-    fn save(&self){
-        
+    pub(crate) fn init(&mut self) {}
+    pub(crate) fn save(&self) {}
+    pub(crate) fn reqest(&self,reqest:Reqest)->Self {
+        todo!()
     }
 }
