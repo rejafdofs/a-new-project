@@ -56,9 +56,9 @@ pub enum Status {
 #[derive(Clone)]
 pub enum Shiori {
     ShioriEvent(ShioriEvent),
-    ShioriResource(shioriResource),
+    ShioriResource(ShioriResource),
 }
 #[derive(Clone)]
 pub enum ShioriEvent {}
 #[derive(Clone, Copy)]
-pub enum shioriResource {}
+pub enum ShioriResource {}

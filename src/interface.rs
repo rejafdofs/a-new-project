@@ -32,7 +32,7 @@ pub unsafe extern "C" fn request(h: *const u8, len: *mut c_long) -> *const c_cha
     }
 }
 unsafe fn ptr_to_string(h: *const u8, len: c_long) -> りさると<String> {
-    let ptr = h as *const u8;
+    let ptr = h ;
     if ptr.is_null() {
         return Ok(String::new());
     }
