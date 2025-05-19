@@ -22,7 +22,7 @@ impl Status {
     pub(crate) fn reqest(&mut self, reqest: Reqest) -> Option<Response> {
         todo!()
     }
-    pub(crate) fn eval_hooks(&mut self, reqest: &Reqest) -> Option<Response> {
+    fn eval_hooks(&mut self, reqest: &Reqest) -> Option<Response> {
         self.event_hook
             .iter()
             .enumerate()

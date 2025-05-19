@@ -7,8 +7,8 @@ pub struct Reqest {
     sender_type: Option<HashSet<SenderType>>,
     security_level: SecurityLevel,
     security_origin: Option<String>,
-    status: Option<HashSet<Status>>,
-    shiori: Shiori,
+    status: HashSet<Status>,
+    shiori: Option<Shiori>,
 }
 impl Reqest {
     pub fn new(str: &str) -> Self {
