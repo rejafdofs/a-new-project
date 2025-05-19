@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::{clone, collections::HashSet};
 
 pub struct Reqest {
     method: Method,
@@ -8,10 +8,10 @@ pub struct Reqest {
     security_level: SecurityLevel,
     security_origin: Option<String>,
     status: Option<HashSet<Status>>,
-    id:ShioriSvent
+    shiori: Shiori,
 }
 impl Reqest {
-    pub fn new(str:&str)->Self{
+    pub fn new(str: &str) -> Self {
         todo!()
     }
     pub fn get_method(&self) -> Method {
@@ -53,5 +53,12 @@ pub enum Status {
     Opening(String), //入力ボックス等が開いている。複数種類が開いている場合は/区切りで列挙される。"dialog"はファイル選択・カラーピッカー等。例：opening(communicate/input/teach/dialog)
     Balloon(String), //バルーンが表示状態。キャラクターID=バルーンID の形式で列挙される。複数開いている場合は/区切りで列挙される。例：balloon(0=2/1=0) で、\0が大きいバルーン、\1が通常のバルーンを表示中の意。
 }
+#[derive(Clone)]
+pub enum Shiori {
+    ShioriEvent(ShioriEvent),
+    ShioriResource(shioriResource),
+}
+#[derive(Clone)]
+pub enum ShioriEvent {}
 #[derive(Clone, Copy)]
-pub enum ShioriSvent{}
+pub enum shioriResource {}
