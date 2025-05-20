@@ -1,7 +1,7 @@
-mod ghost_state;
+mod ghost_status;
 pub mod interface;
 mod test;
 mod error;
 mod init;
-mod reqest;
-mod response;
+mod sakuraio;
+mod define;

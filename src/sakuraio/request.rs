@@ -1,6 +1,6 @@
 use std::collections::HashSet;
-
-pub struct Reqest {
+use super::general_type::*;
+pub struct Request {
     method: Method,
     charset: String,
     sender: String,
@@ -10,7 +10,7 @@ pub struct Reqest {
     status: HashSet<Status>,
     shiori: Option<Shiori>,
 }
-impl Reqest {
+impl Request {
     pub fn new(str: &str) -> Self {
         todo!()
     }
@@ -35,11 +35,7 @@ pub enum SenderType {
     Sstp,        //SSTPによって起こされたイベント。
     Communicate, //コミュニケート仕様によって起こされたイベント。
 }
-#[derive(Clone, Copy)]
-pub enum SecurityLevel {
-    Local,    //実行中の端末内からの通知。
-    External, //実行中端末の外部からの通知。
-}
+
 #[derive(Clone)]
 pub enum Status {
     Talking,         //喋っている途中
