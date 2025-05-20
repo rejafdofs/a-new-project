@@ -1,8 +1,8 @@
 use crate::error::りさると;
 
-pub(crate) fn init(str: &str) -> bool {
+pub(crate) fn init(path: &str) -> bool {
     match (|| -> りさると<()> {
-        crate::ghost_state::GHOSTSTATE.lock()?.init();
+        crate::ghost_state::STATUS.lock()?.init(path);
         todo!();
     })() {
         Ok(_) => true,

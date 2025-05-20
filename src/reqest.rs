@@ -1,4 +1,4 @@
-use std::{clone, collections::HashSet};
+use std::collections::HashSet;
 
 pub struct Reqest {
     method: Method,
