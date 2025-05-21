@@ -8,7 +8,7 @@ pub struct Request {
     security_level: SecurityLevel,
     security_origin: Option<String>,
     status: HashSet<Status>,
-    shiori: Option<Shiori>,
+    shiori_reqest: Option<ShioriReqest>,
 }
 impl Request {
     pub fn new(str: &str) -> Self {
@@ -50,7 +50,7 @@ pub enum Status {
     Balloon(String), //バルーンが表示状態。キャラクターID=バルーンID の形式で列挙される。複数開いている場合は/区切りで列挙される。例：balloon(0=2/1=0) で、\0が大きいバルーン、\1が通常のバルーンを表示中の意。
 }
 #[derive(Clone)]
-pub enum Shiori {
+pub enum ShioriReqest {
     ShioriEvent(ShioriEvent),
     ShioriResource(ShioriResource),
 }
