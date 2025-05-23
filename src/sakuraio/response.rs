@@ -1,5 +1,4 @@
-
-use crate::define::GHOST_NAME;
+use crate::{define::GHOST_NAME, error::えらー};
 #[derive(PartialEq, Eq, PartialOrd, Ord)]
 pub struct Response {
     startus_code: StartusCode,
@@ -7,7 +6,7 @@ pub struct Response {
     value_notify: Option<String>,
 }
 impl Response {
-    fn to_string(&self) -> String {
+    pub fn to_string(&self) -> String {
         format!(
             "SHIORI/3.0 {} {}
 Charset: UTF-8
@@ -20,6 +19,13 @@ Sender: {GHOST_NAME}
                 None => "".to_string(),
             }
         )
+    }
+    pub fn from_err(error: えらー) -> Self {
+        Response {
+            startus_code: StartusCode::InternalServerError,
+            value: Some(error.to_string()),
+            value_notify: None,
+        }
     }
 }
 #[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
@@ -37,7 +43,7 @@ impl StartusCode {
         match self {
             StartusCode::OK => stringify!(OK).to_string(),
             StartusCode::NoContent => stringify!(No Content).to_string(),
-            StartusCode::NotEnough=>stringify!(Not Enough).to_string(),
+            StartusCode::NotEnough => stringify!(Not Enough).to_string(),
             StartusCode::Advice => stringify!(Advice).to_string(),
             StartusCode::BadRequest => stringify!(Bad Request).to_string(),
             StartusCode::InternalServerError => stringify!(Internal Server Error).to_string(),

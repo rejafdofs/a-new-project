@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use super::general_type::*;
+use std::collections::HashSet;
 pub struct Request {
     method: Method,
     charset: String,
